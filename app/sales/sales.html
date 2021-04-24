@@ -1,0 +1,326 @@
+<style>
+.nav-tabs{
+  background-color:#efefef;
+}
+.tab-content{
+    background-color:#f1ff1;
+    border-bottom:1px solid #ddd;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+}
+.nav-tabs > li > a:hover{
+    border: medium none;
+    border-radius: 0;
+    color:#000;
+}
+.nav-tabs {
+    background-color: #efefef !important;
+}
+
+.nav>li>a {
+    background-color: #cccc !important;
+    color: #000;
+}
+</style>
+<form class="form-horizontal" name="salesForm">
+<fieldset class="customer-section">
+ <legend class="customer-section">Customer details</legend>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="cust-name">Name:</label>
+                <div class="col-sm-10">
+                    <!--<input ng-model="customerName" type="text" class="form-control" id="cust-name" placeholder="Enter customer name"/> <br/>-->
+                    <input type="text" ng-model="customerDetails.name" placeholder="search customer" 
+                    uib-typeahead="customer_detail as (customer_detail.name + ' ## ' + customer_detail.phone + ' ## ' + customer_detail.address) 
+                    for customer_detail in customerList($viewValue)" 
+                    typeahead-loading="loadingLocations" 
+                    typeahead-no-results="noResults" 
+                    class="form-control" aria-autocomplete="list" 
+                    aria-expanded="false" aria-owns="typeahead-81-4942"
+                    typeahead-on-select="selectCustomerFrmList($item)"
+                    typeahead-min-length="3"
+                    id="cust-name"
+                    name="customerName"
+                    autocomplete="off"
+                    ng-enter="setFocusTo('custPhone')"
+                    typeahead-focus-first="false"
+                    autofocus
+                    required
+                    
+                    />    
+                <span class="errMsg" ng-show="salesForm.customerName.$touched && salesForm.customerName.$error.required">Enter Customer Name</span>                
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">  
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="cust-phone">Phone No:</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="off" ng-model="customerDetails.phone" type="text" 
+                        class="form-control"  ng-enter="setFocusTo('custPhoneAlternate')" 
+                        id="cust-phone" name="custPhone" placeholder="Enter customer Phone Number">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="cust-phone">Alternate No:</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="off" ng-model="customerDetails.alternateNo" type="text" 
+                        class="form-control"  ng-enter="setFocusTo('customerDetailsAddress')" 
+                        id="cust-phone-alternate" name="custPhoneAlternate" placeholder="Enter customer's Alternate No.">
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group"><label class="control-label col-sm-2" for="cust-address">Address:</label>
+                <div class="col-sm-10">
+                    <input type="text"  ng-enter="setFocusTo('customerEmail')"  name="customerDetailsAddress" 
+                    ng-model="customerDetails.address" placeholder="Enter Customer Address" 
+                    class="form-control" 
+                    />                   
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="row">
+                <div class="col-md-6">
+                <label class="control-label col-sm-4" for="cust-email-id">Email:</label>
+                <div class="col-md-8">
+                     <input
+                            class="form-control"
+                            type="email"
+                            id="cust-email-id"
+                            name="customerEmail"
+                            ng-model="customerDetails.email" 
+                            placeholder="Enter Customer E-mail"
+                            ng-enter="setFocusTo('salesDate')"
+                            />              
+                </div>
+                </div>
+                <div class="col-md-6">
+                <label class="control-label col-sm-4" for="cust-sales-date">Date: {{opened}}</label>
+                <div class="col-md-8">
+                     <input
+                            class="form-control"
+                            autocomplete="off"
+                            type="date"
+                            id="cust-sales-date"
+                            name="salesDate"
+                            ng-model="salesDate"
+                            popup="d MMM yyyy"
+                            options="dateOptions"
+                            opened="opened"
+                            ng-enter="setFocusTo('currentProductName')"
+                            my-datepicker/>              
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</fieldset>
+
+<fieldset class="product-section">
+ <legend class="product-section">Select Product</legend>
+    <div class="center-block" style="width:95%; margin:0 auto">
+     <div class="row">
+      <div class="form-group col-sm-2">
+        <div class="col-sm-12">
+            <label for="current-product-name">Name</label>
+            <input type="text" ng-model="curentProduct.name" placeholder="Select Brand" 
+            uib-typeahead="item as (item.name + ' ### ' + item.model + ' ### ' + item.sn + ' ### ' + item.price) for item in productList($viewValue, 'NAME')" 
+            typeahead-loading="loadingLocations"  typeahead-no-results="noResults" 
+            class="form-control" aria-autocomplete="list" 
+            aria-expanded="false" aria-owns="typeahead-81-4942"
+            typeahead-on-select="selectProductFrmList($item, 'NAME')"
+            typeahead-min-length="3" ng-enter="onProductName('currentProductModelNumber')" 
+            id="current-product-name"
+            name="currentProductName"
+            autocomplete="off"
+            typeahead-focus-first="false"
+            required
+            />    
+            <span class="errMsg" ng-show="salesForm.currentProductName.$touched && salesForm.currentProductName.$error.required">Enter Product name.</span>
+        </div>
+      </div>
+      <div class="form-group col-sm-2 ">
+      <div class="col-sm-12">
+        <label for="current-product-model-number">Model Number</label>
+            <input type="text" ng-model="curentProduct.model" placeholder="Select Model Number" 
+            uib-typeahead="item as (item.name + ' ### ' + item.model + ' ### ' + item.sn + ' ### ' + item.price) for item in productList($viewValue, 'MODEL')" 
+            typeahead-loading="loadingLocations"  typeahead-no-results="noResults" 
+            class="form-control" aria-autocomplete="list" 
+            aria-expanded="false" aria-owns="typeahead-81-4942"
+            typeahead-on-select="selectProductFrmList($item, 'MODEL')"
+            typeahead-min-length="3"  ng-enter="setFocusTo('currentProductSerialNumber')" 
+            id="current-product-model-number"
+            name="currentProductModelNumber"
+            autocomplete="off"
+            typeahead-focus-first="false"
+            />    
+       </div> 
+      </div>
+      <div class="form-group col-sm-2 ">
+      <div class="col-sm-12">
+        <label for="current-product-serial-number">Serial Number</label>
+            <input type="text" ng-model="curentProduct.sn" placeholder="Select Serial No" 
+            uib-typeahead="item as (item.name + ' ### ' + item.model + ' ### ' + item.sn + ' ### ' + item.price) for item in productList($viewValue, 'SN')"             
+            typeahead-loading="loadingLocations"  typeahead-no-results="noResults" 
+            class="form-control" aria-autocomplete="list" 
+            aria-expanded="false" aria-owns="typeahead-81-4942"
+            typeahead-on-select="selectProductFrmList($item, 'SN')"
+            typeahead-min-length="3" ng-enter="setFocusTo('currentProductQuantity')" 
+            id="current-product-serial-number"
+            name="currentProductSerialNumber"
+            autocomplete="off"
+            typeahead-focus-first="false"
+            />    
+
+      </div>  
+      </div>
+      <div class="form-group col-sm-2 ">
+      <div class="col-sm-12">
+        <label for="current-product-quantity">Quantity</label>
+            <input autocomplete="off" type="number" class="form-control" ng-model="curentProduct.quantity" 
+            id="current-product-quantity" placeholder="Item Quantity"  ng-enter="setFocusTo('currentProductPrice')"   
+            required type="number" name="currentProductQuantity" min="1" max="9999" />
+        <span class="errMsg" ng-show="salesForm.currentProductQuantity.$touched && salesForm.currentProductQuantity.$error.required">Enter Qty</span>                
+        
+      </div>  
+      </div>
+      <div class="form-group col-sm-2 ">
+      <div class="form-group col-sm-12">
+        <label for="current-product-price">Price</label>
+            <input autocomplete="off" type="number" class="form-control" id="current-product-price" 
+                   ng-model="curentProduct.price" placeholder="Enter Price" name="currentProductPrice" 
+                   required ng-enter="setFocusTo('curentProductTaxType')"  min="1"
+                   />
+            <span class="errMsg" ng-show="salesForm.currentProductPrice.$touched && salesForm.currentProductPrice.$error.required">Enter price</span>            
+       </div> 
+      </div>
+      
+       <div class="form-group col-sm-2 ">
+      <div>
+            <label for="current-product-taxType">Tax Type</label>
+            <select id="current-product-taxType" ng-enter="addProduct();setFocusTo('currentProductName')" ng-model="curentProduct.taxType" 
+                    name="curentProductTaxType" class="form-control" ng-change="onTaxChange()">
+                <option ng-repeat="x in taxTypes" value="{{x.name}}">{{x.name}}({{x.value}}%)</option>
+            </select>
+      </div>  
+      </div>  
+      <div class="form-group col-sm-2 ">
+      <div class="col-sm-12">
+        <label for="current-product-add">.</label>
+            <button  ng-disabled="!isValidProductInfoforAdd()" id="current-product-add" type="button" 
+            class="form-control btn btn-sm btn-info" ng-click="addProduct();setFocusTo('currentProductName')" 
+            ng-enter="addProduct();setFocusTo('currentProductName')"
+            >Add</button>
+      </div>  
+      </div>
+    </div> 
+  </div>  
+ 
+</fieldset>
+
+<fieldset class="product-list-section" ng-if="selectedProducts.length >0">
+ <legend class="product-list-section">Product List</legend>
+    <div class="center-block" style="width:97%;margin:0 auto">
+        <table st-table="selectedProducts" class="table table-bordered">
+            <thead>
+            <tr style="background-color:#f5f2f0">
+                <th style="width:5%">S.No.</th>
+                <th style="width:20%">Particulars</th>
+                <th style="width:20%">serial No</th>
+                <th style="width:5%">Qty</th>
+                <th style="width:15%">Rate</th> 
+                <th style="width:15%">Tax Type</th>
+                <th style="width:10%">Tax Amount</th> 
+                <th style="width:10%">Total Amount</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in selectedProducts">
+                <td>{{$index+1}}</td>
+                <td>name:{{row.name}}<br/><span ng-if="(row.model != '')">model :{{row.model}}</span></td>
+                <td>{{row.sn}}</td>
+                <td><span class="pull-right">{{row.quantity}}</span></td>
+                <td><span class="pull-right">{{row.totalPrice}}</span></td>
+               
+                <td>{{row.taxType}} ({{row.taxValue}}%)</td>
+                <td><span class="pull-right">{{row.taxAmmount}}</span></td> 
+                <td><span class="pull-right">{{row.grandTotal}}</span></td>
+                <td>
+                    <button type="button" ng-click="removeRow(row)" class="btn btn-sm btn-danger">
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                    </button>
+                </td>                
+            </tr>
+            </tbody>
+            <tfoot>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><span class="pull-right">{{productTotal.totalPrice}}</span></th>
+                
+                 <!--  <th colspan="2">
+                    <div class="pull-right">{{productTotal.taxAmmount}}</div>
+                    <hr>
+                    <div class="pull-right">
+                    <div style="font-weight:normal" ng-repeat="x in taxTypeTotal">{{x.taxType}} ({{x.taxRate}}%) - {{x.taxAmmount.toFixed(2)}}</div>                
+                    </div>
+                </th> -->
+                
+                <th><span class="pull-right">{{productTotal.grandTotal}}</span></th>
+                <th></th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>  
+</fieldset>
+<fieldset class="payment-information" ng-if="selectedProducts.length>0">
+    <legend class="sales-operation-section">Payment Info</legend>
+    <div style="width:90%; margin:0 auto">
+        <div ng-include="'components/template/paymentMode.html'"></div>
+    </div>  
+    <div class="panel panel-default height width-97">
+            <div class="panel-heading">Additional Payment Info</div>
+            <div class="panel-body">
+             <div style="width:90%; margin:0 auto">
+                 <div class="col-sm-12">
+                        <div class="form-group">
+                            <br/>
+                            <label class="control-label col-sm-2" for="payment-cash-ammount">Cash Amount:</label>
+                            <div class="col-sm-8">
+                                <input autocomplete="off" ng-model="paymentInfo.additional_cash" type="number" class="form-control" id="payment-cash-ammount" 
+                                placeholder="Cash Amount">
+                            </div>
+                        </div>
+                    </div>
+             </div>    
+            </div>
+        </div>    
+</fieldset>
+
+<fieldset class="sales-operation-section" ng-if="selectedProducts.length > 0">
+    <!--<legend class="sales-operation-section">Final Step</legend>-->
+    <div class="form-group" style="width:95%; margin:0 auto">
+        <button type="submit" class="btn btn-block btn-success" 
+        ng-disabled="!isValidCustomerAdd()"
+        ng-click='performSalesOperation()'>Submit</button>
+    </div>    
+</fieldset>
+
+</form>

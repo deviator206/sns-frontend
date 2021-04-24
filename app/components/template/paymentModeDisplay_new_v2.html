@@ -1,0 +1,60 @@
+<table class="table table-bordered table-condensed invoice-margin" ng-if="paymentInfo.paymentType == 'cash'">
+	<tr>
+	    <td ng-if="paymentInfo.cash.amount != '0'" class="col-xs-6"><strong >Payment Mode</strong>:&nbsp; CASH </td>
+	    <td ng-if="paymentInfo.cash.amount != '0'" class="col-xs-6"><strong >Amount</strong>:{{paymentInfo.cash.amount +" INR"}}</td>
+	</tr>
+</table>
+
+<table class="table table-bordered table-condensed invoice-margin" ng-if="paymentInfo.paymentType == 'cheq'">
+	<tr>
+	    <td ><strong>Payment Mode</strong> :&nbsp;CHEQUE:{{paymentInfo.cheq.amount +" INR"}}</span></td>
+	</tr>
+	<tr>
+	    <td>
+	    	<span ng-if="paymentInfo.cheq.cheqNo" ><strong >Cheque No</strong>:{{paymentInfo.cheq.cheqNo}} |</span>
+	    	<span ng-if="paymentInfo.cheq.bankName" ><strong> Bank</strong>: {{paymentInfo.cheq.bankName}} |</span>
+	    	<span ng-if="paymentInfo.cheq.cheqDate"  ><strong> Cheque Date</strong>:{{paymentInfo.cheq.cheqDate}} </span>
+	    </td>
+	</tr>
+	<tr/>
+	<tr ng-if="paymentInfo.additional_cash && paymentInfo.additional_cash !== ''">
+		<td ng-if="paymentInfo.additional_cash != '0'" class="col-xs-6"><strong >Payment Mode</strong>:&nbsp; Some Amount By CASH :{{paymentInfo.additional_cash +" INR"}}</td>
+	</tr>
+</table>
+
+
+<table class="table table-bordered table-condensed invoice-margin" ng-if="paymentInfo.paymentType == 'card'">
+	<tr>
+	    <td ><strong>Payment Mode</strong> :&nbsp;CARD:{{paymentInfo.card.amount +" INR"}}</span></td>
+	</tr>
+	<tr>
+	    <td>
+	    	<span  ng-if="paymentInfo.card.cardNumber!== ''" ><strong >Card No</strong>:{{paymentInfo.card.cardNumber}} |</span>
+	    	<span ng-if="paymentInfo.card.cardBank !== ''" ><strong> Bank</strong>: {{paymentInfo.card.cardBank}} |</span>
+	    	<span ng-if="paymentInfo.card.cardNetwork !== ''"  ><strong> Card Network</strong>:{{paymentInfo.card.cardNetwork}} </span>
+	    </td>
+	</tr>
+	<tr/>
+	<tr ng-if="paymentInfo.additional_cash && paymentInfo.additional_cash !== ''">
+		<td ng-if="paymentInfo.additional_cash != '0'"  class="col-xs-6"><strong >Payment Mode</strong>:&nbsp; Some Amount By  CASH :{{paymentInfo.additional_cash +" INR"}}</td>
+	</tr>
+</table>
+
+<table class="table table-bordered table-condensed invoice-margin" ng-if="paymentInfo.paymentType == 'online'">
+	<tr>
+	    <td ><strong>Payment Mode</strong> :&nbsp;ONLINE:{{paymentInfo.online.amount +" INR"}}</span></td>
+	</tr>
+	<tr>
+	    <td>
+	    	<span  ng-if="paymentInfo.online.payMode !== ''" ><strong >Mode</strong>:{{paymentInfo.online.payMode}} |</span>
+	    	<span ng-if="paymentInfo.online.transactionId !== ''" ><strong> Transaction ID</strong>: {{paymentInfo.online.transactionId}} |</span>
+	    	<span ng-if="paymentInfo.online.remark !== ''"  ><strong>Remark</strong>:{{paymentInfo.online.remark}} </span>
+	    </td>
+	</tr>
+	<tr/>
+	<tr ng-if="paymentInfo.additional_cash && paymentInfo.additional_cash !== ''">
+		<td ng-if="paymentInfo.additional_cash != '0'"  class="col-xs-6"><strong >Payment Mode</strong>:&nbsp; Some Amount By CASH :{{paymentInfo.additional_cash +" INR"}}</td>
+	</tr>
+</table>
+
+

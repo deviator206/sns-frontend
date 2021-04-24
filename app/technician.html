@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="salesApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="salesApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="salesApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="salesApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sales App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Vendor/html5-boilerplate/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Vendor/html5-boilerplate/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="Vendor/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="Vendor/html5-boilerplate/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <style>
+    .in-table-data {
+       font-weight: bold;
+      }
+        .modal-lg{
+            width:95%;
+        }
+        input.ng-pristine {
+            
+        }
+
+        input.ng-touched.ng-invalid {
+            border:1px solid red;
+            background-color:#fff4f4;
+        }
+
+        input.ng-touched.ng-valid {
+            
+        }    
+        .errMsg {
+            font-size: 90%;
+            color: #c7254e;
+            background-color: #f9f2f4;
+            border-radius: 4px;        
+        }
+    </style>
+    <script>
+        function openInNewTab(url) {
+          var win = window.open(url, '_blank');
+          win.focus();
+        }    
+
+        function openInNewTab2(url) {
+        	sessionStorage.setItem("userInfoRole","");
+        	var win = window.open("login.html", '_self');
+          	win.focus();
+        }   
+
+        
+        window.onhashchange = function () {
+            var winHash = window.location.hash;
+      			var activeElem = document.getElementsByClassName("top-menu");
+      			if(activeElem.length >0 ){
+      				for(var i=0; i<activeElem.length; i++){
+      					activeElem[i].classList.remove('active');				
+      				}
+      			}
+			
+      			switch(winHash){
+        			case "#!/new":
+        				document.getElementById('new-top-menu').classList.add('active');
+        			break;
+        			case "#!/completed":
+        				document.getElementById('completed-top-menu').classList.add('active');
+        			break;
+              case "#!/pending":
+                document.getElementById('pending-top-menu').classList.add('active');
+              break;
+              case "#!/customer-approval-jobs":
+                document.getElementById('customer-approval-jobs-top-menu').classList.add('active');
+              break;
+              case "#!/part-pending-jobs":
+                document.getElementById('part-pending-jobs-top-menu').classList.add('active');
+              break;
+              case "#!/status":
+                document.getElementById('status-top-menu').classList.add('active');
+              break;
+      			}
+        } 	       
+     </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header"><a class="navbar-brand" href="#">Naik Camera Emporium</a></div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="top-menu" id="status-top-menu" ><a href="#!/status">Status</a></li>
+                    <li class="top-menu" id="new-top-menu" ><a href="#!/new">New Jobs</a></li>
+                    <li class="top-menu" id="completed-top-menu" ><a href="#!/completed">Completed Jobs</a></li>
+                    <li class="top-menu" id="pending-top-menu" ><a href="#!/pending">Technician Handle </a></li>
+                    <li class="top-menu" id="customer-approval-jobs-top-menu" ><a href="#!/customer-approval-jobs">Customer Approval </a></li>
+                    <li class="top-menu" id="part-pending-jobs-top-menu" ><a href="#!/part-pending-jobs">Part Pending</a></li>
+
+                    <!--
+                    <li class="top-menu" id="completedjobs-top-menu"><a href="#!/completed">Compeleted Jobs</a></li> -->
+
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                      <li style="margin-top:5px;"><button onclick="openInNewTab2('index.html')" class="btn btn-success" type="submit">Logout</button></li>
+                </ul>    
+                              
+            </div>
+        </div>
+    </nav>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+    
+  <div ng-view style="margin-top:50px;"></div>
+  <!--<div>Angular seed app: v<span app-version></span> <br> -->
+</div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="Vendor/angular/angular.min.js"></script>
+  <script src="Vendor/angular/angular-route.min.js"></script>
+  <script src="Vendor/angular/ui-bootstrap-tpls-2.5.0.min.js"></script>
+  <script src="Vendor/angular/smart-table.min.js"></script>
+
+  <script src="tech-app.js"></script>
+
+  <script src="tech-flow/status/tech-status.js"></script>
+  <script src="tech-flow/tech.js"></script>
+  <script src="tech-flow/complete/completed.js"></script>
+  <script src="tech-flow/ca/ca.js"></script>
+  <script src="tech-flow/pp/pp.js"></script>
+  <script src="tech-flow/th/th.js"></script>
+
+  <script type="text/ng-template" id="custom-datepicker.html">
+    <div class="form-inline enhanced-datepicker">
+        <label>
+            <input
+                type="text"
+                id="{{id}}"
+                name="{{name}}"
+                ng-model="ngModel"
+                datepicker-popup="{{popup}}"
+                datepicker-options="{{options}}"
+                date-disabled="{{dateDisabled}}"
+                min="{{min}}"
+                max="{{max}}"
+                open="opened"
+                ng-pattern="/^(?:[1-9]|1\d|2\d|3[0-1]) (?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) (?:1|2)(?:\d{3})$/gim"/>
+            <span class="btn"><i class="icon-calendar"></i></span>
+        </label>
+    </div>
+</script>
+  
+  <script src="components/service/utils-service.js"></script>
+  <script src="components/service/tech-jobs-search-service.js"></script>
+  <script src="components/service/customer-service.js"></script>
+  <script src="components/date/date.js"></script>
+  <script src="components/date/date-directive.js"></script>
+  <script src="components/modal/modal.js"></script>
+  <script src="components/modal/modal-directive.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+
+</body>
+</html>

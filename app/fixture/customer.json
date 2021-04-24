@@ -1,0 +1,62 @@
+{
+  "status": true,
+  "customerServiceResponseList": [
+    {
+      "status": false,
+      "id": 1,
+      "name": "sachin",
+      "address": "pune kp road",
+      "email": "a@a.com",
+      "phone": "9765896417"
+    },
+    {
+      "status": false,
+      "id": 2,
+      "name": "mohan",
+      "address": "pune DP road",
+      "email": "a1@a.com",
+      "phone": "8865896417",
+      "contact2": "8865896417--2"
+      
+    },
+    {
+      "status": false,
+      "id": 3,
+      "name": "abdul",
+      "address": "pune-nashik highway near rahauntnagar",
+      "email": "a2@a.com",
+      "phone": "9876554332213",
+      "contact2": "8865896417--222"
+    },
+    {
+      "status": false,
+      "id": 4,
+      "name": "gabdullah",
+      "address": "nashik highway near rahauntnagar",
+      "email": "a3@a.com",
+      "phone": "932476554332213",
+      "contact2": "8865896417--333"
+      
+    },
+    {
+      "status": false,
+      "id": 5,
+      "name": "chenchunkkas",
+      "address": "KP raoad Lulla nagar ear rahauntnagar",
+      "email": "a4@a.com",
+      "phone": "8976542398",
+      "contact2": "8865896417--5555"
+      
+    },
+    {
+      "status": false,
+      "id": 6,
+      "name": "tech bhai",
+      "address": "tech1 ka address nahi malum",
+      "email": "a7@a.com",
+      "phone": "87654433212",
+      "contact2": "8865896417--666"
+      
+    }
+  ]
+}

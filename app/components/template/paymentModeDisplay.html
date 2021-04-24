@@ -1,0 +1,75 @@
+<table class="table table-condensed no-border invoice-margin" ng-if="paymentInfo.paymentType == 'cash'">
+<tr>
+    <td class="col-xs-2"><span class="pull-left">Payment Mode</span> <span class="pull-right">:</span></td>
+    <td class="col-xs-2">&nbsp; CASH</td>
+    <td class="col-xs-8">{{paymentInfo.cash.amount +" INR"}}</td>
+</tr>
+</table>
+<table class="table table-condensed no-border invoice-margin" ng-if="paymentInfo.paymentType == 'cheq'">
+<tr>
+    <td class="col-xs-2"><span class="pull-left">Payment Mode.</span> <span class="pull-right">:</span></td>
+    <td class="col-xs-2">&nbsp; CHEQUE</td>
+    <td class="col-xs-4">{{paymentInfo.cheq.amount +" INR"}}</td>
+    <td class="col-xs-2"><span class="pull-right">Cheque No</span></td>
+    <td class="col-xs-2"><span class="pull-left">:</span>&nbsp; <span>{{paymentInfo.cheq.cheqNo}}</span></td>
+</tr>
+<tr>
+    <td class="col-xs-2"><span class="pull-left">Bank</span> <span class="pull-right">:</span></td>
+    <td class="col-xs-2">&nbsp; {{paymentInfo.cheq.bankName}}</td>
+    <td class="col-xs-4"></td>
+    <td class="col-xs-2"><span class="pull-right">Cheque Date.</span></td>
+    <td class="col-xs-2"><span class="pull-left">:</span>&nbsp; <span>{{paymentInfo.cheq.cheqDate}}</span></td>
+</tr>
+<tr ng-if="paymentInfo.additional_cash && paymentInfo.additional_cash !== ''">
+	<td class="col-xs-2">CASH</td>
+    <td class="col-xs-8">{{paymentInfo.cash.amount +" INR"}}</td>
+</tr>
+</table>
+<table class="table table-condensed no-border invoice-margin" ng-if="paymentInfo.paymentType == 'card'">
+<tr>
+    <td class="col-xs-2"><span class="pull-left">Payment Mode.</span> <span class="pull-right">:</span></td>
+    <td class="col-xs-2">&nbsp; CARD</td>
+    <td class="col-xs-4">{{paymentInfo.card.amount +" INR"}}</td>
+    <td class="col-xs-2" ng-if="paymentInfo.card.cardNumber!== ''"><span class="pull-right">Card no.</span></td>
+    <td class="col-xs-2" ng-if="paymentInfo.card.cardNumber!== ''"><span class="pull-left">:</span>&nbsp; <span>{{paymentInfo.card.cardNumber}}</span></td>
+</tr>
+<tr>
+    <td class="col-xs-2" ng-if="paymentInfo.card.cardBank !== ''"><span class="pull-left">Bank</span> <span class="pull-right">:</span></td>
+    <td class="col-xs-2" ng-if="paymentInfo.card.cardBank !== ''" >&nbsp; {paymentInfo.card.cardBank}</td>
+    <td class="col-xs-4"></td>
+    <td class="col-xs-2" ng-if="paymentInfo.card.cardNetwork !== ''"><span class="pull-right">Card Network</span></td>
+    <td class="col-xs-2" ng-if="paymentInfo.card.cardNetwork !== ''" ><span class="pull-left">:</span>&nbsp; <span>{{paymentInfo.card.cardNetwork}}</span></td>
+</tr>
+<tr ng-if="paymentInfo.additional_cash && paymentInfo.additional_cash !== ''">
+	<td class="col-xs-2">CASH</td>
+    <td class="col-xs-8">{{paymentInfo.cash.amount +" INR"}}</td>
+</tr>
+</table>
+<table class="table table-condensed no-border invoice-margin" ng-if="paymentInfo.paymentType == 'online'">
+<tr ng-if="paymentInfo.paymentType == 'online'">
+	<b ng-if="paymentInfo.paymentType == 'online' && paymentInfo.paymentType == 'online'">Paid:Online||</b>
+	<span ng-if="paymentInfo.paymentType == 'online' && paymentInfo.online.amount"><b>Amount:</b>{{paymentInfo.online.amount +" INR "}} ||</span>
+	<span ng-if="paymentInfo.paymentType == 'online' && paymentInfo.online.payMode"><b>Mode:</b>{{paymentInfo.online.payMode +" " }} ||</span>
+	<span ng-if="paymentInfo.paymentType == 'online' && paymentInfo.online.transactionID"><b>Trans ID:</b>{{paymentInfo.online.transactionID +" "}}||</span>
+	<span ng-if="paymentInfo.paymentType == 'online' && paymentInfo.online.remark"><b>Remark:</b>{{paymentInfo.online.remark + " "}}||</span>
+</tr>	
+	<!--
+	<td class="col-xs-2">Mode:</td>
+    <td class="col-xs-3">&nbsp; Online</td>
+    <td class="col-xs-2">{{paymentInfo.online.amount+" INR"}}</td>
+    <td class="col-xs-2" ng-if='paymentInfo.online.payMode'>Medium:</td>
+    <td class="col-xs-5"><span>{{paymentInfo.online.payMode}}</span></td>
+</tr>
+<tr>
+    <td class="col-xs-2" ng-if='paymentInfo.online.transactionID'>TransactionID:</td>
+    <td class="col-xs-3">&nbsp; {{paymentInfo.online.transactionID}}</td>
+    <td class="col-xs-2" ng-if='paymentInfo.online.remark'>Reamrk:</td>
+    <td class="col-xs-5">{{paymentInfo.online.remark}}</td>
+</tr>
+ -->
+ 
+<tr ng-if="paymentInfo.additional_cash && paymentInfo.additional_cash !== ''">
+	<td class="col-xs-2">CASH:</td>
+    <td class="col-xs-8">{{paymentInfo.cash.amount +" INR"}}</td>
+</tr>
+</table>

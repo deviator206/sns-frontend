@@ -1,2 +1,3 @@
-FROM busybox
-CMD echo "Hello World EXTRA work"
+
+FROM nginx:stable-perl
+COPY  ./app  /usr/share/nginx/html

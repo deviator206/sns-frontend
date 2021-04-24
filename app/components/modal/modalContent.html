@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="components/modal/printHeaderCss.css">
+<div class="modal-header">
+    <h3 class="modal-title">Sales Confirmation</h3>
+</div>
+<div class="modal-body">
+<div class="container invoice-modal-full" id="invoice-modal-full-123">
+    <div ng-include="'components/modal/printHeader.html'"></div>  
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-condensed no-border invoice-margin">
+                <tr>
+                    <td class="col-xs-2"><span class="pull-left">Invoice</span> <span class="pull-right">:</span></td>
+                    <td class="col-xs-3">&nbsp; {{salesResponseData.invoiceId}}</td>
+                    <td class="col-xs-3"></td>
+                    <td class="col-xs-1"><span class="pull-right">Date</span></td>
+                    <td class="col-xs-3"><span class="pull-left">:</span>&nbsp; <span>{{dateValue}}</span></td>
+                </tr>
+                <tr>
+                    <td class="col-xs-2"><span class="pull-left">Customer</span> <span class="pull-right">:</span></td>
+                    <td class="col-xs-2">&nbsp; {{customerDetails.name}}</td>
+                    <td class="col-xs-4"></td>
+                    <td class="col-xs-1"><span class="pull-right">Mobile</span></td>
+                    <td class="col-xs-3"><span class="pull-left">:</span>&nbsp; 
+                    	<span>{{customerDetails.phone}}</span>
+                    	<span ng-if="customerDetails.alternateNo">Alternate : {{customerDetails.alternateNo}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-xs-2" ng-if="customerDetails.address" ><span class="pull-left">Address</span> <span class="pull-right">:</span></td>
+                    <td class="col-xs-10" ng-if="customerDetails.address" colspan="4">&nbsp; {{customerDetails.address}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>     
+
+    <div class="row">
+    	<div class="col-md-12">
+           <table st-table="selectedProducts" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Particulars</th>
+                <th>serial No</th>
+                <th>Qty</th>
+                <th>Price per Unit</th>
+                <th>Rate</th>
+                <!--  <th>Tax Type</th>
+                <th>Tax Amount</th> -->
+                <th>Total Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in selectedProducts">
+                <th>{{$index+1}}</th>
+                <td>{{row.name}} <span ng-if="(row.model != '')"><b>model :</b>{{row.model}}</span> </td>
+                <td>{{row.sn}}</td>
+                <td><span class="pull-right">{{row.quantity}}</span></td>
+                <td><span class="pull-right">{{row.price}}</span></td>
+                <td><span class="pull-right">{{row.totalPrice}}</span></td>
+                <!--  <td><span class="pull-right">{{row.taxType}} ({{row.taxValue}}%)</span></td>
+                <td><span class="pull-right">{{row.taxAmmount}}</span></td>-->
+                <td><span class="pull-right">{{row.grandTotal}}</span></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><span class="pull-right">{{productTotal.totalPrice}}</span></th>
+                <!--<th></th>
+                 <th><span class="pull-right">{{productTotal.taxAmmount}}</span></th> -->
+                <th><span class="pull-right">{{productTotal.grandTotal}}</span></th>
+            </tr>
+            </tfoot>
+        </table>
+    	</div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-condensed no-border invoice-margin">
+                <tr>
+                    <td class="col-xs-2"><span class="pull-left"> <strong>GSTIN.</strong> {{salesResponseData.vatTinNumber}}</span></td>
+                </tr>
+            </table> 
+            <div ng-include="'components/template/paymentModeDisplay_new.html'"></div>
+            </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <td id="td-terms-contents" style="width:50%">Composition Taxable Person. Not Eligible to Collect Tax on Supplies</td>
+                        <td id="td-signature-contents" style="width:50%">
+                             <div style="text-align:center">(Authorised Signature)</div>
+                        
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="printPage();">Print</button>
+    <button class="btn btn-warning" ng-click="reloadSalesPage()">Close</button>
+</div>

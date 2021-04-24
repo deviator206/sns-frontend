@@ -1,0 +1,422 @@
+<form class="form-horizontal" name="serviveForm">
+<fieldset class="customer-section">
+ <legend class="customer-section">Customer details</legend>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="cust-name">Name:</label>
+                <div class="col-sm-10">
+                    <!--<input ng-model="customerName" type="text" class="form-control" id="cust-name" placeholder="Enter customer name"/> <br/>-->
+                    <input type="text" ng-model="serviceRequest.customerInfo.name" placeholder="search customer" 
+                    uib-typeahead="customer_detail as (customer_detail.name + ' ## ' + customer_detail.phone + ' ## ' + customer_detail.address) 
+                    for customer_detail in customerList($viewValue)" 
+                    typeahead-loading="loadingLocations" 
+                    typeahead-no-results="noResults" 
+                    class="form-control" aria-autocomplete="list" 
+                    aria-expanded="false" aria-owns="typeahead-81-4942"
+                    typeahead-on-select="selectCustomerFrmList($item)"
+                    typeahead-min-length="3"
+                    id="cust-name"
+                    name="customerName"
+                    autocomplete="off"
+                    ng-enter="setFocusTo('custPhone')"
+                    typeahead-focus-first="false"
+                    style="text-transform: uppercase" 
+                    autofocus
+                    required
+                    
+                    />    
+                <span class="errMsg" ng-show="serviveForm.customerName.$touched && serviveForm.customerName.$error.required">Enter Customer Name</span>                
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">  
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="cust-phone">Phone No:</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="off" required ng-model="serviceRequest.customerInfo.phone" type="text" 
+                        class="form-control"  ng-enter="setFocusTo('custPhoneAlternate')" 
+                        id="cust-phone" name="custPhone" placeholder="Enter customer Phone Number" minlength="10" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="cust-phone">Alternate No:</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="off" ng-model="serviceRequest.customerInfo.alternateNo" type="text" 
+                        class="form-control"  ng-enter="setFocusTo('customerDetailsAddress')" 
+                        id="cust-phone-alternate" name="custPhoneAlternate" placeholder="Enter customer's Alternate No.">
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group"><label class="control-label col-sm-2" for="cust-address">Address:</label>
+                <div class="col-sm-10">
+                    <input type="text"  ng-enter="setFocusTo('customerEmail')"  name="customerDetailsAddress" 
+                    ng-model="serviceRequest.customerInfo.address" placeholder="Enter Customer Address" 
+                    class="form-control" 
+                    />                   
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="row">
+                <div class="col-md-6">
+                <label class="control-label col-sm-4" for="cust-email-id">Email:</label>
+                <div class="col-md-8">
+                     <input
+                            class="form-control"
+                            type="email"
+                            id="cust-email-id"
+                            name="customerEmail"
+                            ng-model="serviceRequest.customerInfo.email" 
+                            placeholder="Enter Customer E-mail"
+                            ng-enter="setFocusTo('serviceDate')"
+                            />              
+                </div>
+                </div>
+                <div class="col-md-6">
+                <label class="control-label col-sm-4" for="cust-sales-date">Date: {{opened}}</label>
+                <div class="col-md-8">
+                     <input
+                            class="form-control"
+                            autocomplete="off"
+                            type="date"
+                            id="cust-sales-date"
+                            name="serviceDate"
+                            ng-model="serviceDate"
+                            popup="d MMM yyyy"
+                            options="dateOptions"
+                            opened="opened"
+                            ng-enter="setFocusTo('currentProductName')"
+                            my-datepicker/>              
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</fieldset>
+
+<fieldset class="product-section">
+ <legend class="product-section">Select Product</legend>
+    <div class="center-block width-97" style="margin:0 auto">
+     <div class="row">
+      <div class="form-group col-sm-3">
+        <div class="col-sm-12">
+            <label for="current-product-name">Name</label>
+            <input type="text" ng-model="curentProduct.name" placeholder="Select Brand" 
+            uib-typeahead="item as (item.name + ' ### ' + item.model + ' ### ' + item.sn + ' ### ' + item.price) for item in productList($viewValue, 'NAME')" 
+            typeahead-loading="loadingLocations"  typeahead-no-results="noResults" 
+            class="form-control" aria-autocomplete="list" 
+            aria-expanded="false" aria-owns="typeahead-81-4942"
+            typeahead-on-select="selectProductFrmList($item, 'NAME')"
+            typeahead-min-length="3" ng-enter="setFocusTo('currentProductModelNumber')" 
+            id="currentProductName"
+            name="currentProductName"
+            autocomplete="off"
+            required
+            max-length="100"
+            typeahead-focus-first="false"
+            />    
+            <span class="errMsg" ng-show="serviveForm.currentProductName.$touched && serviveForm.currentProductName.$error.required">Enter Product name.</span>
+        </div>
+      </div>
+      <div class="form-group col-sm-3">
+      <div class="col-sm-12">
+        <label for="current-product-model-number">Model Number</label>
+            <input type="text" ng-model="curentProduct.model" placeholder="Select Model Number" 
+            uib-typeahead="item as (item.name + ' ### ' + item.model + ' ### ' + item.sn + ' ### ' + item.price) for item in productList($viewValue, 'MODEL')" 
+            typeahead-loading="loadingLocations"  typeahead-no-results="noResults" 
+            class="form-control" aria-autocomplete="list" 
+            aria-expanded="false" aria-owns="typeahead-81-4942"
+            typeahead-on-select="selectProductFrmList($item, 'MODEL')"
+            typeahead-min-length="3"  ng-enter="setFocusTo('currentProductSerialNumber')" 
+            id="currentProductModelNumber"
+            name="currentProductModelNumber"
+            autocomplete="off"
+            required
+            max-length="100"
+            typeahead-focus-first="false"
+            />    
+       </div> 
+      </div>
+      <div class="form-group col-sm-3">
+      <div class="col-sm-12">
+        <label for="current-product-serial-number">Serial Number</label>
+            <input type="text" ng-model="curentProduct.sn" placeholder="Select Serial No" 
+            class="form-control" aria-autocomplete="list" 
+            typeahead-min-length="3" ng-enter="addProduct();setFocusTo('currentProductName')" 
+            id="currentProductSerialNumber"
+            name="currentProductSerialNumber"
+            autocomplete="off"
+            required
+            max-length="100"
+            />    
+
+      </div>  
+      </div>
+      <!--  
+      <div class="form-group col-sm-2 ">
+      <div class="form-group col-sm-12">
+        <label for="current-product-price">Estimated Price</label>
+            <input autocomplete="off" type="number" class="form-control" id="current-product-price" 
+                   ng-model="curentProduct.price" placeholder="Enter Price" name="currentProductPrice" 
+                   required ng-enter="setFocusTo('curentProductTaxType')"  min="1"
+                   />
+            <span class="errMsg" ng-show="serviveForm.currentProductPrice.$touched && serviveForm.currentProductPrice.$error.required">Enter price</span>            
+       </div> 
+      </div>
+      -->
+      <div class="form-group col-sm-3">
+      <div class="col-sm-12">
+        <label for="current-product-add">.</label>
+            <button  ng-disabled="!isValidProductInfoforAdd()" id="current-product-add" type="button" 
+            class="form-control btn btn-sm btn-info" ng-click="addProduct();setFocusTo('currentProductName')">Add</button>
+      </div>  
+      </div>
+    </div> 
+  </div>  
+ 
+</fieldset>
+
+<fieldset class="product-list-section" ng-if="serviceRequest.productInfo.length >0">
+ <legend class="product-list-section">Product List</legend>
+    <div class="center-block width-97" style="margin:0 auto">
+        <table st-table="selectedProducts" class="table table-bordered">
+            <thead>
+            <tr style="background-color:#f5f2f0">
+                <th style="width:5%">S.No.</th>
+                <th style="width:30%">Particulars</th>
+                <th style="width:30%">Model No</th>
+                <th style="width:30%">Serial No</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in serviceRequest.productInfo">
+                <td>{{$index+1}}</td>
+                <td>{{row.name}}</td>
+                <td>{{row.model}}</td>
+                <td>{{row.sn}}</td>
+                <td>
+                    <button type="button" ng-click="removeRow(row)" class="btn btn-sm btn-danger">
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                    </button>
+                </td>                
+            </tr>
+            </tbody>
+            <tfoot>
+                <th colspan="5"></th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>  
+</fieldset>
+
+<fieldset class="service-section">
+ <legend class="service-section">Enter Service details</legend>
+    <div class="center-block width-97" style="margin:0 auto">
+     <div class="row">
+      <div class="form-group col-sm-4">
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Select Accessories</div>
+            <div class="panel-body">
+                <div ng-repeat="accessory in accessoryList  track by $index">
+                  <label>  
+                  <input type="checkbox" checklist-model="serviceRequest.accessoryList" checklist-value="accessory"> {{accessory}}
+                  </label>
+                </div>       
+                <div>
+                    <input type="textbox" ng-model="newAccessory" ng-enter="addAccessory()">
+                    <button ng-disabled="!isValidNewAccessory()" type="button" 
+                    class="btn btn-sm btn-info" ng-click="addAccessory()">Add</button>                    
+                </div>
+            </div>
+        </div>      
+      </div>
+      <div class="form-group col-sm-4">
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Select Problems</div>
+            <div class="panel-body">
+                <div ng-repeat="problem in problemLists  track by $index">
+                  <label>  
+                  <input type="checkbox" checklist-model="serviceRequest.problemLists" checklist-value="problem"> {{problem}}
+                  </label>
+                </div>     
+                <div>
+                    <input type="textbox" ng-model="newProblem" ng-enter="addProblem()">
+                    <button ng-disabled="!isValidNewProblem()" type="button" 
+                    class="btn btn-sm btn-info" ng-click="addProblem()">Add</button>                    
+                </div>
+            </div>
+        </div>      
+      </div>
+      <div class="form-group col-sm-4">
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Observation</div>
+            <div class="panel-body">
+                Nature of Complaints
+                <textarea ng-model="serviceRequest.customerComment" name="customerComment" 
+                class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="cust-address" placeholder="Enter Nature of Complaints"></textarea>
+                <br>
+                Remark
+                <textarea ng-model="serviceRequest.shopUserComment" name="shopUserComment" 
+                class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="cust-address" placeholder="Enter Remark"></textarea>
+            </div>
+        </div>       
+      </div>
+    </div> 
+    
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Item Received Mode</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="cust-name">How it is received:</label>
+                        <div class="col-sm-4">
+                            <select ng-model="productLogisticMode.logisticType" class="form-control" id="productReceivedType">
+                                <option ng-repeat="logisticType in productLogisticMode.receivedModes" value="{{logisticType.value}}">
+                                    {{logisticType.name}}
+                                </option>
+                            </select>                  
+                        </div>
+                    </div>
+                </div>       
+                <div ng-if="productLogisticMode.logisticType == 'courier'">
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="cust-name">Courier Name:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" ng-model="serviceRequest.courierInfo.courierName" placeholder="Courier Name"  ng-enter="comeWhatMay()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="cust-phone">Phone No:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" ng-model="serviceRequest.courierInfo.courierPhone" placeholder="Courier Phone No."  ng-enter="comeWhatMay()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="cust-phone">Document Number:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" ng-model="serviceRequest.courierInfo.courierDocumentNo" ng-enter="comeWhatMay()" placeholder="Courier Document Number" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                </div>
+            </div>
+        </div>      
+      </div>    
+        <div class="form-group col-sm-4">
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Tentative Estimate</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="cust-name">Estimated Cost:</label>
+                        <div class="col-sm-8">
+                            <div class="col-sm-10">
+                                <input autocomplete="off" ng-model="serviceEstimatedDeliveryCost" type="text" class="form-control" id="estimation-info" 
+                                placeholder="Estimated Amt.">
+                            </div>
+                                      
+                        </div>
+                         <label class="control-label col-sm-4" for="cust-name">Estimated Date:</label>
+                        <div class="col-sm-8">
+                            <div class="col-sm-10">
+                            	<input
+		                            class="form-control"
+		                            autocomplete="off"
+		                            type="date"
+		                            id="delivert-estimated-date"
+		                            name="serviceDate"
+		                            ng-model="serviceEstimatedDeliveryDate"
+		                            popup="d MMM yyyy"
+		                            options="dateOptions"
+		                            opened="opened"
+		                            my-datepicker/>        
+                            </div>
+                                      
+                        </div>
+                    </div>
+                </div>       
+                
+            </div>
+        </div>      
+     
+        </div>
+       
+    </div>
+    <div class="row">
+    	 <div class="form-group col-sm-12">
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Advance Payment Info</div>
+            <div class="panel-body">
+             <div style="width:90%; margin:0 auto">
+                 <div ng-include="'components/template/paymentMode.html'"></div>
+             </div>    
+            </div>
+        </div>   
+        <div class="panel panel-default height width-97">
+            <div class="panel-heading">Additional Payment Info</div>
+            <div class="panel-body">
+             <div style="width:90%; margin:0 auto">
+                 <div class="col-sm-12">
+                        <div class="form-group">
+                            <br/>
+                            <label class="control-label col-sm-2" for="payment-cash-ammount">Cash Amount:</label>
+                            <div class="col-sm-8">
+                                <input autocomplete="off" ng-model="paymentInfo.additional_cash" type="number" class="form-control" id="payment-cash-ammount" 
+                                placeholder="Cash Amount">
+                            </div>
+                        </div>
+                    </div>
+             </div>    
+            </div>
+        </div>     
+      </div>  
+    </div>
+  </div>  
+</fieldset>
+<fieldset>
+
+
+</fieldset>
+<fieldset class="sales-operation-section" ng-if="serviceRequest.productInfo.length > 0">
+    <!--<legend class="sales-operation-section">Final Step</legend>-->
+    <label style="color:red;">
+		  <div class="center-block " style="margin:0 auto">
+		<div ng-if="inCompleteFormElementList.length > 0">  
+		{{" Error In "+ inCompleteFormElementList}}
+		</div>  
+		</div> 
+		</label>
+
+    <div class="form-group width-97" style="margin:0 auto">
+        <button type="submit" class="btn btn-block btn-success" 
+        ng-disabled="!isValidCustomerAdd()"
+        ng-click='performServiceDrop()'>Submit</button>
+    </div>    
+</fieldset>
+
+</form>

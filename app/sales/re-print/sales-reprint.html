@@ -1,0 +1,153 @@
+<h1> Sales-Reprint </h1>
+
+<div class="container-fluid" ng-init="init()">
+
+
+
+    <div class=row >
+        <div class="form-group">
+            <label class="control-label col-sm-3" >
+                <select
+					ng-model="selectedFilterByOptionForStatus" class="form-control"
+					ng-change="onFilterByOptionIsChanged()">
+						<option ng-repeat="x in searchFilterByOptions" value="{{x}}">{{x}}</option>
+				</select>
+            </label>
+
+            <div class="col-sm-6"
+            ng-show="selectedFilterByOptionForStatus === 'SEARCH BY TEXT'">
+                <input type="text" 
+                        ng-model="statusSearchTextModel"
+                        placeholder="search records" 
+                        class="form-control" 
+                        aria-autocomplete="list" 
+                        aria-expanded="false" 
+                        aria-owns="typeahead-81-4942" 
+                        ng-enter="statusSearchTextAsPerFilterOption()" 
+                        autocomplete="off" 
+                        autofocus 
+                        required />
+
+                
+
+            </div>
+            <div class="col-sm-3" 
+            ng-show="selectedFilterByOptionForStatus === 'SEARCH BY TEXT'">
+                    <label class="control-label" >
+                        <select  ng-model="statusSelectedSearchFilterOptionsModel" 
+                                 class="form-control"
+                                 ng-enter= "statusSearchTextAsPerFilterOption()">
+                            <option ng-repeat="x in statusSearchFilterOptions" value="{{x}}">{{x}}</option>
+                        </select>
+                    </label>
+            </div>
+			<div class="col-sm-4"
+					ng-show="selectedFilterByOptionForStatus === 'SEARCH BY DATE'">
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="serviceDateFrom">From:
+							{{opened1}}</label>
+						<div class="col-md-10">
+							<p class="input-group">
+								<input class="form-control" autocomplete="off" type="date"
+									id="service-drop-from" name="serviceDateFrom"
+									ng-model="serviceDateFromModel" popup="d MMM yyyy"
+									options="dateOptions" opened="opened1" my-datepicker />
+							</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="serviceDateTo">To:
+							{{opened2}}</label>
+						<div class="col-md-10">
+							<p class="input-group">
+								<input class="form-control" autocomplete="off" type="date"
+									id="service-drop-to" name="serviceDateTo"
+									ng-model="serviceDateTo" popup="d MMM yyyy"
+									options="dateOptions" opened="opened2" my-datepicker />
+							</p>
+						</div>
+					</div>
+				</div>
+			
+			
+			
+			<div class="col-sm-4"
+					ng-show="selectedFilterByOptionForStatus === 'SEARCH BY DATE'">
+					 <span class="errMsg">{{serviceSearchCriteriaIncomplete}}</span>
+					 <input
+						class="form-control" type="submit" value="Search"
+						ng-click="statusSearchTextAsPerFilterOption()" />
+				</div>
+            
+           
+
+        </div>
+    </div>
+
+
+    <div class="row" >
+        <fieldset class="product-list-section">
+            <legend class="product-list-section">Job List</legend>
+            <legend class="  errMsg">{{itemSelectionError}}</legend>
+            <div class="center-block" style="width:97%;margin:0 auto">
+                <table st-table="selectedProducts" class="table table-bordered">
+                    <thead>
+                        <tr style="background-color:#f5f2f0">
+                            <th style="width:5%">Sr. No.</th>
+                            <th style="width:10%">Invoice Id</th>
+                            <th style="width:10%"> Date Info</th>
+                            <th style="width:15%">Customer Info</th>
+                            <th style="width:40%">Product Details</th>
+                            <th style="width:10%">Grand Total</th>
+                            <th style="width:5%">Get Bill</th>
+
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(key,row) in salesListFinal" data-my={key}>
+                            <td>{{$index+1}}</td>
+                            <td> {{row.invoiceId}} </td>
+                            <td> <strong>{{row.products[0].orderDate}}</strong> <hr/>  </td>
+                            <td>
+                                <span class="in-table-data"> name:</span> {{row.customerInfo.name}} <br/> 
+                                <span class="in-table-data"> phone: </span> {{row.customerInfo.phone}} <br/> 
+                            </td>
+                            <td> 
+                              <div >
+                           <table  class="table table-bordered">
+                           <thead>
+                           
+                           	<th>Name</th>
+                           	<th>Model</th>
+                           	<th>SN</th>
+                           	<th>Unit Price</th>
+                           	<th>Qty</th>
+                           	</thead>
+                           	<tr ng-repeat="item in row.products">
+                           	<td>{{item.name}}</td>
+                           	<td>{{item.model}}</td>
+                           	<td>{{item.sn}}</td>
+                           	<td>{{item.price +" INR"}}</td>
+                           	<td>{{item.quantity}}</td>
+                           	</tr>
+                           </table>
+                            </td>
+                            
+                           <td>
+                           {{getSummationAmount(row.paymentInfo) + " INR"}}
+                           	
+                           </td> 
+                           
+                        <td>
+                           <input type="button" value="View Bill" ng-click="viewBill(row)" />
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </fieldset>  
+
+    </div>
+
+</div>

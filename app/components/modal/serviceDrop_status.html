@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="components/modal/printHeaderCss.css">
+<div class="modal-header">
+    <h3 class="modal-title">Service Receipt</h3>
+</div>
+<div class="modal-body">
+<div class="container invoice-modal-full" id="invoice-modal-full-123">
+    <div ng-include="'components/modal/printHeader.html'"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-condensed no-border invoice-margin">
+                <tr>
+                    <td style="width:16%"><span class="pull-left" ng-if="receiptType === 'ESTIMATE' ">Estimate</span><span class="pull-left" ng-if="receiptType !== 'ESTIMATE' ">Invoice</span> <span class="pull-right">:</span></td>
+                    <td style="width:26%">&nbsp; {{serviceResponse.repairReceiptId}}</td>
+                    <td style="width:22%"></td>
+                    <td style="width:8%"><span class="pull-right">Date</span></td>
+                    <td style="width:24%"><span class="pull-left">:</span>&nbsp; <span>{{serviceRequest.serviceDate}}</span></td>
+                </tr>
+                <tr>
+                    <td><span class="pull-left">Customer</span> <span class="pull-right">:</span></td>
+                    <td>&nbsp; {{(serviceRequest.customerInfo.name).toUpperCase()}}</td>
+                    <td></td>
+                    <td><span class="pull-right">Mobile</span></td>
+                    <td><span class="pull-left">:</span>&nbsp; <span>{{serviceRequest.customerInfo.phone}}</span></td>
+                </tr>
+                <tr>
+                    <td><span class="pull-left">Address:</span> <span class="pull-right">:</span></td>
+                    <td colspan="2">&nbsp; {{serviceRequest.customerInfo.address}}</td>
+                    <!-- <td><span class="pull-right">VAT Tin No</span></td>
+                    <td><span class="pull-left">:</span>&nbsp; <span>{{serviceResponse.vatTinNumber}}</span></td> -->
+                </tr>
+            </table>
+        </div>
+    </div>     
+
+	    
+    <div class="row">
+    	<div class="col-md-12">
+           <table st-table="serviceRequest" class="table table-bordered">
+            <thead>
+            <tr>
+                <th style="width:5%">S.No.</th>
+                <th style="width:33%">Particulars</th>
+                <th style="width:28%">Model</th>
+                <th style="width:33%">Serial No</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in serviceRequest.productInfo">
+                <th>{{$index+1}}</th>
+                <td>{{row.name}}</td>
+                <td>{{row.model}}</td>
+                <td>{{row.sn}}</td>
+            </tr>
+            </tbody>
+        </table>
+    	</div>
+    </div>
+    
+
+    <table class="table table-condensed table-bordered invoice-margin">
+        <tr>
+            <th style="width:50%">Accessories Details</th>
+            <th style="width:50%">Complaints Found</th>
+            
+        </tr>
+        <tr>
+            <td>
+                <div ng-if="serviceRequest.accessoryList.length == 0">
+                  N/A
+                </div>     
+                <div ng-if="serviceRequest.accessoryList.length > 0">
+                  {{serviceRequest.accessoryList.join(', ')}}
+                </div>     
+            </td>
+            <td>
+                <div ng-if="serviceRequest.problemLists.length == 0">
+                  N/A
+                </div>     
+                <div ng-if="serviceRequest.problemLists.length > 0 ">
+                  {{serviceRequest.problemLists.join(', ')}}
+                </div>     
+            </td>
+            
+        </tr>
+    </table>
+     <div class="row"  ng-if='receiptType === "RECEIPT"'>
+        <div class="col-xs-12">
+        	<table class="table table-bordered table-condensed invoice-margin" >
+				<tr>
+				    <td ng-if="serviceRequest.advancePayment != '0'" class="col-xs-6"><strong >Advanced Paid </strong>:&nbsp; {{serviceRequest.advancePayment +" INR"}} </td>
+				</tr>
+			</table>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12">
+        	<div ng-include="'components/template/paymentModeDisplay_new.html'"></div>
+        	
+        </div>
+      </div>
+      
+      <div class="row"  ng-if='receiptType === "RECEIPT" '>
+        <div class="col-xs-12">
+        	<table class="table table-bordered table-condensed invoice-margin" >
+				<tr>
+				    <td ng-if="serviceRequest.advancePayment != '0'" class="col-xs-6"><strong >Total </strong>:&nbsp; {{serviceRequest.paymentInfo.totalCharges +" INR"}} </td>
+				</tr>
+			</table>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-condensed invoice-margin">
+                <tr ng-if='serviceRequest.commentsInfo.customer || serviceRequest.customerComment' >
+                    <th style="width:15%">Nature of Complaints</th>
+                    
+                    <td ng-if='serviceRequest.commentsInfo.customer'><div ng-bind="serviceRequest.commentsInfo.customer"></div></td>
+                    <td ng-if='serviceRequest.customerComment'><div ng-bind="serviceRequest.customerComment"></div></td>
+                </tr>
+                <tr ng-if='serviceRequest.commentsInfo.customer || serviceRequest.shopUserComment' >
+                    <th>Remark</th>
+                    <td ng-if='serviceRequest.commentsInfo.customer'><div ng-bind="serviceRequest.commentsInfo.shopkeeper"></div></td>
+                    <td ng-if='serviceRequest.shopUserComment'><div ng-bind="serviceRequest.shopUserComment"></div></td>
+                    
+                </tr>
+            </table>
+       </div>
+    </div>
+    
+    	 <div class="row" ng-if='receiptType !== "RECEIPT"'>
+	    	<div class="col-md-12">
+	    	   <table st-table="serviceRequest" class="table table-bordered">
+	            <tbody>
+	            <tr >
+	                <td ng-if='serviceRequest.estimation && serviceRequest.estimation.cost' ><span class="pull-left">Estimated Cost:</span> <span class="pull-right">:</span></td>
+                    <td ng-if='serviceRequest.estimation && serviceRequest.estimation.cost'>&nbsp; {{serviceRequest.estimation.cost}}</td>
+                    <td ng-if='serviceRequest.estimation && serviceRequest.estimation.date'  ><span class="pull-right">Estimated Delivery Time</span></td>
+                    <td ng-if='serviceRequest.estimation && serviceRequest.estimation.date' ><span class="pull-left">:</span>&nbsp; <span>{{serviceRequest.estimation.date}}</span></td>
+	            </tr>
+	            </tbody>
+	        </table>
+	    	</div>
+	</div>
+	
+	<div class="row" ng-if='receiptType === "RECEIPT"'>
+	<div class="col-md-12">
+			<table class="table table-bordered table-condensed invoice-margin">
+				<tr>
+				    <td class="col-xs-6"><strong >Delivery Date</strong>: {{ serviceRequest.finalDeliveryDate }}</td>
+				</tr>
+			</table>
+	</div>
+	</div>
+    
+    <div class="row" ng-if='receiptType === "ESTIMATE"'>
+        <div class="col-md-12" style="font-size:10px">
+        1. The Original Memo must be produced while delivery of the equipment. Delivery may be refused if this memo is not presented. An Authorization letter is necessary from the person who has brought the set initially if the sale is not taking the delivery or the original service memo is misplaced.<br/>
+        2. The apparatus must be collected within 1 months of date of repair/rejection. After first month company will charge Rs. 10/- per day as storage charges for the following 1 months. If delivery is not taken within 2 months the company will have right to dispose of you equipment at any price and recover the repair cost from the proceeds.<br/>
+        3. Defective parts are not preserved after replacement. Hence these will not be refunded. No labor will be charged for the repeat complaint within one month of the date of delivery. Camera Emporium warranty will avoid if the unit is opened by any other person other than Camera Emporium service center.<br/>
+        4. Reasonable care will be taken of the equipment received for repair. The Camera Emporium is however, is not liable for any loss or damage arising from accident, fire, theft, riot or causes beyond control.<br/>
+        5. Inspection charges of Rs 250/- must be paid in advance and it is not refundable id repair estimate is not approved.<br/>
+        6. All legal matter are subject to Pune jurisdiction only.<br/>
+        7. We reserve the right to return the article to customer if -<br/>
+        a. The Article is found in tampered condition and / or <br/>
+        b. The required spare parts are not available from the manufacturers<br/>
+        </div>
+    </div>
+    <div class="row" style="margin-top:25px;">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <td colspan="2" class="no-border"></td>
+                </tr>
+                <tr>
+                    <td class="text-center no-border">Customer Signature</td>
+                    <td class="text-center no-border">For Camera Emporium</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="printPage();">Print</button>
+    <button class="btn btn-warning" ng-click="reloadPage()">Close</button>
+</div>

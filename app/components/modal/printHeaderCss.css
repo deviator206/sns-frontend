@@ -1,0 +1,47 @@
+.modal-lg{
+    width:95%;
+}
+.invoice-modal-full {
+    width:98% !important;
+    border:1px solid #222;
+    border-radius:3px;
+    margin: 0 auto;
+}
+.invoice-header, .invoice-margin{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.invoice-panel-padding{
+    padding:2px !important;
+}
+.no-border {
+    border:0px !important;
+}
+.no-border tr, .no-border td{
+    border:none !important;
+}
+.table-bordered>thead>tr>th, .table-bordered>thead>tr>td{
+    border-bottom:0px;
+}
+.text-center{
+    text-align:center;
+}
+.table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
+    padding: 2px !important;
+}
+address {
+    margin-bottom:0px;
+}
+h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 1px;
+    margin-bottom: 5px;
+}        
+.panel{
+    margin-bottom:2px;
+}
+.label{
+    margin-bottom:0px;
+}
+.table {
+    margin-bottom: 5px;
+}

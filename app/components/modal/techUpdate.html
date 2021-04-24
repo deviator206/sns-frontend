@@ -1,0 +1,75 @@
+
+
+ <div class="modal-content">
+<link rel="stylesheet" href="components/modal/printHeaderCss.css">
+<div class="modal-header">
+    <h3 class="modal-title">Update Status Of #{{selectedItemForUpdate.serviceNumber}}</h3>
+</div>
+<div class="modal-body">
+<div class="container invoice-modal-full" id="invoice-modal-full-123">
+    
+    
+    <div class="row">
+        <div class="col-xs-12">
+        
+                    <span class="in-table-data"> Service Date :</span> {{selectedItemForUpdate.serviceDate}} 
+				        <span class="in-table-data"> Customer Name:</span> {{selectedItemForUpdate.customerInfo.name}} 
+				        <span class="in-table-data"> Customer Contact: </span> {{selectedItemForUpdate.customerInfo.phone}} <br/>
+				        <hr>
+				         <span ng-if="(selectedItemForUpdate.commentsInfo.tech != null && selectedItemForUpdate.commentsInfo.tech !== '' )" class="in-table-data"> Original Comment: </span> {{selectedItemForUpdate.commentsInfo.tech}} <br/> 
+				        <span ng-if="(selectedItemForUpdate.commentsInfo.th_comment != null && selectedItemForUpdate.commentsInfo.th_comment !== '' )" class="in-table-data"> Technician  Handle: </span> {{selectedItemForUpdate.commentsInfo.th_comment}} <br/>
+				        <span ng-if="(selectedItemForUpdate.commentsInfo.pp_comment != null && selectedItemForUpdate.commentsInfo.pp_comment !== '' )" class="in-table-data"> Part Pending: </span> {{selectedItemForUpdate.commentsInfo.pp_comment}} <br/>
+				        <span ng-if="(selectedItemForUpdate.commentsInfo.ca_comment != null && selectedItemForUpdate.commentsInfo.ca_comment !== '' )" class="in-table-data"> Customer Approval: </span> {{selectedItemForUpdate.commentsInfo.ca_comment}} <br/>
+				        <span ng-if="(selectedItemForUpdate.commentsInfo.c_comment != null && selectedItemForUpdate.commentsInfo.c_comment !== '' )"  class="in-table-data"> Completed: </span> {{selectedItemForUpdate.commentsInfo.c_comment}} <br/>
+				        <hr/>
+				        <span class="in-table-data"  ng-if ="(selectedItemForUpdate.serviceStatus !== 'C')"> Technician Comments:</span>
+				        <textarea   id ="techCommentsIDModal" class="form-control" rows="5" ng-if ="(selectedItemForUpdate.serviceStatus !== 'C')" > {{selectedItemForUpdate.commentsInfo.tech}}</textarea>
+				
+        </div>
+    </div>     
+
+    <div class="row">
+    	 <table st-table="selectedProducts" class="table table-bordered">
+                    <thead>
+                        <tr style="background-color:#f5f2f0">
+                            <th style="width:5%">Sr. No.</th>
+                            <th style="width:40%">Product Details</th>
+                            <th style="width:20%">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="row in selectedItemForUpdate.productInfo" data-my={row.serviceNumber}>
+                            <td>{{$index+1}}</td>
+                            <td> 
+                                     <span class="in-table-data"> name: </span>{{row.name}}#{{row.model}}<br/> 
+                                     <span class="in-table-data"> sn:</span> {{row.sn}} <br/>
+                            </td>
+                              <td> 
+                                 <label class="control-label" >
+                                    <select  
+                                    		ng-if ="(selectedItemForUpdate.serviceStatus !== 'C')"
+                                             class="form-control my-product-info"
+                                             my-data="{{row.id}}">
+                                        <option ng-repeat="x in itemStatusListMap" value="{{x}}">{{x}}</option>
+                                    </select>
+                                    <span ng-if ="(selectedItemForUpdate.serviceStatus === 'C')"> Completed</span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+    </div>
+    
+
+    
+    
+    
+</div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-if ="(selectedItemForUpdate.serviceStatus !== 'C')" ng-click="statusIsUpdated();">Update Status</button>
+    <button class="btn btn-warning" ng-click="cancel()">Close</button>
+</div>
+

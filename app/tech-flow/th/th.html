@@ -1,0 +1,119 @@
+<h1> Technician Flow </h1>
+
+<div class="container-fluid" ng-init="init()">
+    <div class="container-fluid">
+        
+
+   
+    <div class=row >
+        <div class="form-group">
+            <label class="control-label col-sm-3" >
+                Search Text
+            </label>
+
+            <div class="col-sm-6">
+                <input type="text" 
+                        ng-model="searchTextModel"
+                        placeholder="search records" 
+                        class="form-control" 
+                        aria-autocomplete="list" 
+                        aria-expanded="false" 
+                        aria-owns="typeahead-81-4942" 
+                        ng-enter="searchTextAsPerFilterOption()" 
+                        autocomplete="off" 
+                        autofocus 
+                        required />
+
+                
+
+            </div>
+            <div class="col-sm-3" >
+                    <label class="control-label" >
+                        <select  ng-model="selectedSearchFilterOptionsModel" 
+                                 class="form-control"
+                                 ng-enter= "searchTextAsPerFilterOption()">
+                            <option ng-repeat="x in searchFilterOptions" value="{{x}}">{{x}}</option>
+                        </select>
+                    </label>
+            </div>
+
+            <div class="col-sm-3" >
+                    <label class="control-label" >
+                             <button  class="form-control btn btn-sm btn-info"  
+                                     ng-click="clearSearchCriteria()">Clear Search</button>
+                       
+                    </label>
+            </div>
+
+
+            <span class="errMsg">{{serviceSearchCriteriaIncomplete}}</span>
+           
+
+        </div>
+    </div>
+    <div class="row" >
+        <fieldset class="product-list-section">
+            <legend class="product-list-section">Job List</legend>
+            <legend class="  errMsg">{{itemSelectionError}}</legend>
+            <div class="center-block" style="width:97%;margin:0 auto">
+                <table st-table="selectedProducts" class="table table-bordered">
+                    <thead>
+                        <tr style="background-color:#f5f2f0">
+                            <th style="width:5%">Sr. No.</th>
+                            <th style="width:5%">Service Number</th>
+                            <th style="width:5%">Service Date</th>
+                            <th style="width:20%">Customer Info</th>
+                            <th style="width:20%">Product Details</th>
+                            <th style="width:10%">Accesory Lists</th>
+                            <th style="width:10%">Problem Lists</th>
+                            <th style="width:20%">Comments</th>
+                            <th style="width:5%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="row in actualServiceList" data-my={row.serviceNumber}>
+                            <td>{{$index+1}}</td>
+                            <td> {{row.serviceNumber}} </td>
+                            <td> {{row.serviceDate}} </td>
+                            <td>
+                                <span class="in-table-data"> name:</span> {{row.customerInfo.name}} <br/> 
+                                <span class="in-table-data"> phone: </span> {{row.customerInfo.phone}} <br/> 
+                            </td>
+                            <td> 
+                                 <div ng-repeat="item in row.productInfo">
+                                    
+                                     <span class="in-table-data"> name: </span>{{item.name}}#{{item.model}}# {{item.sn}}<br/> 
+                                     <span class="in-table-data"> status:</span> {{serviceStatusMapping [item.serviceStatus]}} <br/>  
+                                     <span class="in-table-data"> sn:</span> {{item.sn}} <br/>
+                                     <hr/>
+                                  
+                                </div>  
+                            </td>
+                             <td>{{row.accessoryList}}</td>
+                             <td>{{row.problemList}}</td>
+                             <td> 
+                                <span class="in-table-data"> customer: </span>{{row.commentsInfo.customer}} <br/>
+                                 <span class="in-table-data"> reciever:</span> {{row.commentsInfo.shopkeeper}}<br/>
+                                 <span class="in-table-data"> technician:</span>{{row.commentsInfo.tech}}<br/>
+                            </td>
+                              <td> 
+                                <button  class="form-control btn btn-sm btn-info" 
+                                         ng-click="updateStatusClicked(row)">Update Status</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </fieldset>  
+
+    </div>
+
+    
+
+</div>
+</div>
+
+
+
+
+

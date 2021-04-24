@@ -1,0 +1,193 @@
+
+{
+  "status": true,
+  "searchResults": [
+    {
+      "customerInfo": {
+        "id": "",
+        "name": "SANDEEP",
+        "address": "Pune",
+        "phone": "9765896417"
+      },
+      "paymentInfo": {
+        "advancePayment": "100"
+      },
+      "courierInfo": {
+        "isCourier": false,
+        "courierName": "HelloCourier",
+        "courierPhone": "",
+        "courierDocumentNo": 102323
+      },
+      "userInfo": {
+        "userId": 1
+      },
+      "commentsInfo": {
+        "customer": "kay zala re baba",
+        "shopkeeper": "kay mahit mala",
+        "tech": "all is well"
+      },
+      "serviceNumber": 123478,
+      "serviceDate": "12/04/2016",
+      "serviceStatus":"IP",
+      "productInfo":[ 
+        {
+          "id":21344545,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          "accessoryList": "XXX-accessoryList,accessoryList",
+          "problemList": "XXX-problemList,problemList",
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "taxValue": 5.5,
+          "serviceStatus":"C",
+          "taxRate": 5.5
+        },
+        {
+          "id":21333,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "serviceStatus":"IP",
+          "taxValue": 5.5,
+          "taxRate": 5.5
+        },
+        {
+          "id":213334323,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "serviceStatus":"IP",
+          "taxValue": 5.5,
+          "taxRate": 5.5
+        },
+        {
+          "id":21377733,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "serviceStatus":"IP",
+          "taxValue": 5.5,
+          "taxRate": 5.5
+        },
+        {
+          "id":21344533,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "serviceStatus":"IP",
+          "taxValue": 5.5,
+          "taxRate": 5.5
+        },
+        {
+          "id":2167567333,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "serviceStatus":"IP",
+          "taxValue": 5.5,
+          "taxRate": 5.5
+        }
+
+
+
+      ],
+      "accessoryList": "XXX-accessoryList,accessoryList",
+          "problemList": "XXX-problemList,problemList" 
+        
+      
+    },
+
+    {
+      "customerInfo": {
+        "id": "",
+        "name": "SANDEEP",
+        "address": "Pune",
+        "phone": "9999999999"
+      },
+      "paymentInfo": {
+        "advancePayment": "100"
+      },
+      "courierInfo": {
+        "isCourier": false,
+        "courierName": "HelloCourier",
+        "courierPhone": "",
+        "courierDocumentNo": 102323
+      },
+      "userInfo": {
+        "userId": 1
+      },
+      "commentsInfo": {
+        "customer": "kay zala re baba",
+        "shopkeeper": "kay mahit mala",
+        "tech": "all is well"
+      },
+      "accessoryList": "XXX-accessoryList,accessoryList",
+          "problemList": "XXX-problemList,problemList",
+      "serviceNumber": 123478343,
+      "serviceDate": "12/04/2016",
+      "serviceStatus":"C",
+      "productInfo": [
+          {
+            "id":213,
+          "name": "XXX",
+          "model": "model",
+          "sn": "XXX-sn",
+          "accessoryList": "XXX-accessoryList,accessoryList",
+          "problemList": "XXX-problemList,problemList",
+          "shopUserComment": "XXX-shopUserComment",
+          "customerComment": "XXX-customerComment",
+          "tentative_quoted_cost": "2000",
+          "tentative_service_completion_date": "2017-05-25 04:38:25",
+          "service_order_date": "2017-05-25 04:38:25",
+          "taxType": "VAT-2",
+          "taxValue": 5.5,
+          "serviceStatus":"IP",
+          "taxRate": 5.5
+        }
+      ]
+        
+      
+    }
+
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "selectedProductList": [1,2],
+  "problemLists": [
+    "Dust In View Finder",
+    "Scratches on Focusing Screen",
+    "Salt Water Damage",
+    "Water Damage"
+  ],
+  "accessoryList": [
+    "AC Cord",
+    "Filter UV",
+    "Memory Card",
+    "Charger",
+    "Battery"
+  ],
+  "shopUserComment": "Remark Remark Remark Remark Remark",
+  "customerComment": "Nature of Complaints Nature of Complaints Nature of Complaints",
+  "tentative_quoted_cost": 0,
+  "customerInfo": {
+    "id": "",
+    "name": "Anup",
+    "address": "aadadsaD as AS asa dsa d",
+    "phone": "Singh"
+  },
+  "productInfo": [
+    {
+      "name": "nIKON",
+      "model": "1234",
+      "sn": "343534324234",
+      "$$hashKey": "object:53",
+      "id":1
+    },
+    {
+      "name": "cANON",
+      "model": "3454dfd435",
+      "sn": "32435435445",
+      "id":2
+    }
+  ],
+  "service_order_date": "2017-06-04 09:24:00",
+  "tentative_service_completion_date": "2017-06-04 09:24:00",
+  "courierInfo": {
+    "isCourier": true,
+    "courierName": "Blue Dart",
+    "courierPhone": "12121212",
+    "courierDocumentNo": "113243454657678"
+  },
+  "courierOutwardInfo": {
+    "isCourier": false,
+    "courierName": "",
+    "courierPhone": "",
+    "courierDocumentNo": ""
+  },
+  "pageMode": "SERVICE_DROP",
+  "serviceDate": "2017-06-04 09:24:00",
+  "paymentInfo": {
+    "paymentType": "card",
+    "paymentTypes": [
+      {
+        "name": "Cash",
+        "value": "cash",
+        "$$hashKey": "object:45"
+      },
+      {
+        "name": "Card Pyment",
+        "value": "card",
+        "$$hashKey": "object:46"
+      },
+      {
+        "name": "Cheque",
+        "value": "cheq",
+        "$$hashKey": "object:47"
+      }
+    ],
+    "cardTypes": [
+      "RuPay",
+      "VISA",
+      "MaeterCard",
+      "American Express",
+      "Chase",
+      "Discover"
+    ],
+    "cash": {
+      "amount": 110
+    },
+    "card": {
+      "amount": 1233,
+      "bankName": "dfdsfdsfdsfdsf",
+      "cardNumber": "1212121212",
+      "expDate": "",
+      "cardNetwork": "",
+      "cardBank": ""
+    },
+    "cheq": {
+      "amount": 0,
+      "bankName": "",
+      "cheqNo": "",
+      "cheqDate": ""
+    }
+  }
+}

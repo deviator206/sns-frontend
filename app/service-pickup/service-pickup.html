@@ -1,0 +1,160 @@
+<h1> service-pickup </h1>
+
+
+
+<div class="container-fluid" ng-init="init()">
+    <div class="container-fluid">
+        
+
+   
+    <div class=row ng-hide="someOrderIsSelectedForDelivery()">
+        <div class="form-group">
+            <label class="control-label col-sm-3" >
+                <select  ng-model="selectedFilterByOption" 
+                         class="form-control"
+                         ng-change="onFilterByOptionIsChanged()" >
+                        <option ng-repeat="x in searchFilterByOptions" value="{{x}}">{{x}}</option>
+                    </select>
+            </label>
+
+            <div class="col-sm-6" ng-show="selectedFilterByOption === 'SEARCH BY TEXT'">
+                <!--<input ng-model="customerName" type="text" class="form-control" id="cust-name" placeholder="Enter customer name"/> <br/>-->
+                <input type="text" ng-model="searchServiceByText" placeholder="search records" class="form-control" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-81-4942" id="cust-name" name="customerName" ng-enter="searchTextAsPerFilterOption()" autocomplete="off" autofocus required />
+
+                <span class="errMsg">{{serviceSearchCriteriaIncomplete}}</span>
+
+            </div>
+            <div class="col-sm-3" ng-show="selectedFilterByOption === 'SEARCH BY TEXT'">
+                    <label class="control-label" >
+                        <select  ng-model="selectedFilterOption" 
+                                 class="form-control" >
+                            <option ng-repeat="x in searchFilterOptions" value="{{x}}">{{x}}</option>
+                        </select>
+                    </label>
+
+
+            </div>
+
+
+            <div class="col-sm-4" ng-show="selectedFilterByOption === 'SEARCH BY DATE'">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="serviceDateFrom">From: {{opened1}}</label>
+                    <div class="col-md-10">
+                        <p class="input-group">
+                            <input class="form-control" autocomplete="off" type="date" id="service-drop-from" name="serviceDateFrom" ng-model="serviceDateFromModel" popup="d MMM yyyy" options="dateOptions" opened="opened1" my-datepicker/>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="serviceDateTo">To: {{opened2}}</label>
+                    <div class="col-md-10">
+                        <p class="input-group">
+                            <input class="form-control" autocomplete="off" type="date" id="service-drop-to" name="serviceDateTo" ng-model="serviceDateTo" popup="d MMM yyyy" options="dateOptions" opened="opened2" my-datepicker/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4" ng-show="selectedFilterByOption === 'SEARCH BY DATE'">
+                <span class="errMsg">{{serviceSearchCriteriaIncomplete}}</span>
+                <input class="form-control" type="submit" value="Search" ng-click="searchTextAsPerFilterOption()" />
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-hide="someOrderIsSelectedForDelivery()">
+        <div class="col-sm-8" ng-if="errorInSearchOptions !== ''">
+            <legend> {{errorInSearchOptions}} </legend>
+        </div>
+
+
+    </div>
+    <div class="row" ng-hide="someOrderIsSelectedForDelivery()">
+        <fieldset class="product-list-section">
+            <legend class="product-list-section">Result List</legend>
+            <legend class="  errMsg">{{itemSelectionError}}</legend>
+            <div class="center-block" style="width:97%;margin:0 auto">
+                <table st-table="selectedProducts" class="table table-bordered">
+                    <thead>
+                        <tr style="background-color:#f5f2f0">
+                            <th style="width:5%">Sr. No.</th>
+                            <th style="width:5%">Deliver</th>
+                            <th style="width:5%">Advanced</th>
+
+                            <th style="width:10%">Service Info.</th>
+                            
+
+                            <th style="width:20%">Customer Info</th>
+                            <th style="width:20%">Product Details</th>
+                             <th style="width:10%">Accesory Lists</th>
+                            <th style="width:10%">Problem Lists</th>
+                           
+                            <th style="width:10%">Comments</th>
+                            <th style="width:10%">Courier Info</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="mainItemList">
+                        <tr ng-repeat="row in actualServiceList" data-my={row.serviceNumber}>
+                            <td>{{$index+1}}</td>
+                            <td> 
+                                <button class="btn btn-block btn-success "
+                                    ng-click="moveToCustomerDelivery(row)"
+                                    ng-disabled="toDisableDeliverButton(row)">  Deliver </button>
+
+                                    <!-- && ($scope.serviceOrderSelectedForDeliver !== row.serviceNumber) -->
+                            </td>
+                            <td> {{row.paymentInfo.advancePayment}} </td>
+
+                            <td>
+                                <span class="in-table-data"> # </span>{{row.serviceNumber}} <br/>
+                                <span class="in-table-data">date: </span> {{row.serviceDate}} <br/>
+                               
+                            </td>
+                            
+
+                            <td>
+                                <span class="in-table-data"> name:</span> {{row.customerInfo.name}} <br/> 
+                                <span class="in-table-data"> phone: </span> {{row.customerInfo.phone}} <br/> 
+                                <span ng-if="row.customerInfo.alternateNo" class="in-table-data"> alternate: </span> <span ng-if="row.customerInfo.alternateNo">  {{row.customerInfo.alternateNo}}</span>
+                                <br/> 
+                            </td>
+
+
+                            <td> 
+                                 <div ng-repeat="item in row.productInfo">
+                                  
+                                  <input type ="checkbox"  
+                                        checklist-model="selectedProductList.itemsToDeliver" 
+                                        checklist-value="item.id"
+                                        ng-disabled="isValidStateToAddToBill(item)" >
+                                         <span class="in-table-data">Name: </span>{{item.name}}<br/> 
+                                  	   <span class="in-table-data"> Status:</span> {{serviceStatusMapping [item.serviceStatus]}} <br/>  
+                                     <span class="in-table-data"> Model:</span> {{item.model}} <br/>
+                                     <span class="in-table-data"> SN::</span> {{item.sn}} <br/>
+                                  
+                                </div>  
+
+                                 
+                            </td>
+
+                             <td>{{row.accessoryList}}</td>
+                            <td>{{row.problemList}}</td>
+                           
+                             <td> 
+                                <span class="in-table-data"> customer: </span>{{row.commentsInfo.customer}} <br/>
+                                 <span class="in-table-data"> reciever:</span> {{row.commentsInfo.shopkeeper}}<br/>
+                                 <span class="in-table-data"> technician:</span>{{row.commentsInfo.tech}}<br/>
+                            </td>
+                              <td> 
+                                <span class="in-table-data"> name : </span> {{row.courierInfo.courierName}}<br/> 
+                                 <span class="in-table-data"> ph : </span>{{row.courierInfo.courierPhone}} <br/> 
+                                 <span class="in-table-data"> #</span>{{row.courierInfo.courierDocumentNo}} <br/> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+
